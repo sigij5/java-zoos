@@ -1,33 +1,39 @@
 package com.lambdaschool.javazoos.controllers;
 
-/**
- * The entry point for clients to access user data
- */
-//@RestController
-//@RequestMapping("/zoos")
-//public class ZooController
-//{
-//    /**
-//     * Using the Zoo service to process user data
-//     */
-//    @Autowired
-//    private ZooService zooService;
-//
-//    /**
-//     * Returns a list of all users
-//     * <br>Example: <a href="http://localhost:2019/users/users">http://localhost:2019/users/users</a>
-//     *
-//     * @return JSON list of all users with a status of OK
-//     * @see ZooService#findAll() ZooService.findAll()
-//     */
-//    @GetMapping(value = "/users",
-//            produces = "application/json")
-//    public ResponseEntity<?> listAllZoos()
-//    {
-//        List<Zoo> myZoos = zooService.findAll();
-//        return new ResponseEntity<>(myZoos,
-//                                    HttpStatus.OK);
-//    }
+
+import com.lambdaschool.javazoos.models.Zoo;
+import com.lambdaschool.javazoos.services.ZooService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/zoos")
+public class ZooController
+{
+    @Autowired
+    private ZooService zooService;
+
+    @GetMapping(value = "/zoos",
+            produces = "application/json")
+    public ResponseEntity<?> listAllZoos()
+    {
+        List<Zoo> myZoos = zooService.findAllZoos();
+        return new ResponseEntity<>(myZoos,
+                                    HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/zoo/{zooid}", produces = "application/json")
+    public ResponseEntity<?> findZooById(@PathVariable Long zooid){
+        Zoo z = zooService.findZooById(zooid);
+        return new ResponseEntity<>(z, HttpStatus.OK);
+    }
 //
 //    @GetMapping(value = "/user/{userId}",
 //            produces = "application/json")
@@ -180,4 +186,4 @@ package com.lambdaschool.javazoos.controllers;
 //        zooService.delete(id);
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
-//}
+}

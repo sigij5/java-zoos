@@ -13,7 +13,7 @@ public interface AnimalRepository
 
 //    Animal findByNameIgnoreCase(String name);
 
-@Query(value = "SELECT a.animaltype as animal, count(zooid) as zoos\n" +
+@Query(value = "SELECT a.animaltype as animal, a.animalid as animalid, count(zooid) as zoos\n" +
         "FROM animals a LEFT JOIN zooanimals z\n" +
         "ON a.animalid = z.animalid\n" +
         "GROUP BY animal\n" +

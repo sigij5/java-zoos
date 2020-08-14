@@ -1,5 +1,9 @@
 package com.lambdaschool.javazoos.services;
 
+import com.lambdaschool.javazoos.models.Zoo;
+
+import java.util.List;
+
 /**
  * The Service that works with Zoo Model.
  * <p>
@@ -9,12 +13,9 @@ package com.lambdaschool.javazoos.services;
  */
 public interface ZooService
 {
-//    /**
-//     * Returns a list of all the Users
-//     *
-//     * @return List of Users. If no users, empty list.
-//     */
-//    List<Zoo> findAll();
+    List<Zoo> findAllZoos();
+
+    Zoo findZooById(long id);
 //
 //    /**
 //     * A list of all users whose username contains the given substring

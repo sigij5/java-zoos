@@ -3,6 +3,39 @@ package com.lambdaschool.javazoos.services;
 /**
  * Implements ZooService Interface
  */
+
+import com.lambdaschool.javazoos.models.Zoo;
+import com.lambdaschool.javazoos.repository.ZooRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+@Transactional
+@Service(value = "zooService")
+public class ZooServiceImpl implements ZooService{
+    @Autowired
+    private ZooRepository zoorepos;
+
+    @Override
+    public List<Zoo> findAllZoos() {
+        List<Zoo> list = new ArrayList<>();
+        zoorepos.findAll()
+                .iterator()
+                .forEachRemaining(list::add);
+        return list;
+    }
+
+    @Override
+    public Zoo findZooById(long id) throws EntityNotFoundException {
+        return zoorepos.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Zoo " + id + " Not Found"));
+    }
+}
+
 //@Transactional
 //@Service(value = "userService")
 //public class ZooServiceImpl
